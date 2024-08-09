@@ -10,6 +10,9 @@ const Navigation: React.FC = () => (
 			<li>
 				<Link to="/contracts">Contracts</Link>
 			</li>
+			<li>
+				<Link to="/ships">Ships</Link>
+			</li>
 		</ul>
 	</nav>
 );

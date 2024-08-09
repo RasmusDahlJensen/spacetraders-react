@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ContractModel, fetchContracts } from "./fetchContracts";
+import {
+	ContractModel,
+	fetchContracts,
+	acceptContract,
+} from "./fetchContracts";
 
 const ContractsPage: React.FC = () => {
 	const [contracts, setContracts] = useState<ContractModel[]>([]);
@@ -16,6 +20,18 @@ const ContractsPage: React.FC = () => {
 
 		getContracts();
 	}, []);
+
+	const handleAccept = async (contractId: string) => {
+		try {
+			await acceptContract(contractId);
+			const updatedContracts = contracts.map((contract) =>
+				contract.id === contractId ? { ...contract, accepted: true } : contract
+			);
+			setContracts(updatedContracts);
+		} catch (error) {
+			console.error("Failed to accept contract:", error);
+		}
+	};
 
 	return (
 		<div>
@@ -70,11 +86,16 @@ const ContractsPage: React.FC = () => {
 									</ul>
 								</div>
 							</div>
+							{!contract.accepted && (
+								<button onClick={() => handleAccept(contract.id)}>
+									Accept Contract
+								</button>
+							)}
 						</li>
 					))}
 				</ul>
 			) : (
-				<p>No contracts available</p>
+				<p>No contracts available, please wait for more...</p>
 			)}
 		</div>
 	);

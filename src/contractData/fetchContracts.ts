@@ -1,5 +1,5 @@
 import axiosInstance from "../axiosInstance/axiosInstance";
-import { formatDate } from "../hooks/formatDate"; // Import the formatDate utility
+import { formatDate } from "../hooks/formatDate";
 
 export interface DeliveryTerm {
 	destinationSymbol: string;
@@ -36,7 +36,6 @@ export async function fetchContracts(): Promise<ContractModel[]> {
 			"/my/contracts"
 		);
 
-		// Map through the contracts and format the dates
 		const formattedContracts = response.data.data.map((contract) => ({
 			...contract,
 			deadlineToAccept: formatDate(contract.deadlineToAccept),
@@ -51,6 +50,15 @@ export async function fetchContracts(): Promise<ContractModel[]> {
 		return formattedContracts;
 	} catch (error) {
 		console.error("Error fetching contracts:", error);
+		throw error;
+	}
+}
+
+export async function acceptContract(contractId: string): Promise<void> {
+	try {
+		await axiosInstance.post(`/my/contracts/${contractId}/accept`);
+	} catch (error) {
+		console.error("Error accepting contract:", error);
 		throw error;
 	}
 }

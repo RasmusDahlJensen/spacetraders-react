@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation.tsx";
 
 // Navigation pages
 import ContractsPage from "./contractData/ContractsPage.tsx";
+import ShipPage from "./shipData/ShipData.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
 			<Routes>
 				<Route path="/" element={<App />} />
 				<Route path="/contracts" element={<ContractsPage />} />
+				<Route path="/ships" element={<ShipPage />} />
 			</Routes>
 		</Router>
 	</React.StrictMode>
