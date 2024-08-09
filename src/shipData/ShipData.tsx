@@ -31,10 +31,33 @@ const ShipPage: React.FC = () => {
 			<h1>Shipyard Information</h1>
 			{shipyards.length > 0 ? (
 				<div>
-					{shipyards.map((shipyard, index) => (
-						<div key={index}>
-							<h2>Shipyard {index + 1}</h2>
+					{shipyards.map((shipyard) => (
+						<div key={shipyard.symbol}>
+							<h2>Shipyard {shipyard.symbol}</h2>
 							<p>Type: {shipyard.type}</p>
+							<p>System Symbol: {shipyard.systemSymbol}</p>
+							<p>Orbits: {shipyard.orbits}</p>
+							<p>
+								Coordinates: ({shipyard.x}, {shipyard.y})
+							</p>
+							<p>
+								Under Construction:{" "}
+								{shipyard.isUnderConstruction ? "Yes" : "No"}
+							</p>
+							<p>Faction: {shipyard.faction.symbol}</p>
+							<h3>Traits:</h3>
+							<ul>
+								{shipyard.traits.map((trait) => (
+									<li key={trait.symbol}>
+										<strong>{trait.name}</strong>: {trait.description}
+									</li>
+								))}
+							</ul>
+							<p>Chart submitted by: {shipyard.chart.submittedBy}</p>
+							<p>
+								Submitted on:{" "}
+								{new Date(shipyard.chart.submittedOn).toLocaleString()}
+							</p>
 						</div>
 					))}
 				</div>
