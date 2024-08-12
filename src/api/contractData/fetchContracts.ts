@@ -1,5 +1,5 @@
 import axiosInstance from "../axiosInstance/axiosInstance";
-import { formatDate } from "../hooks/formatDate";
+import { formatDate } from "../../hooks/formatDate";
 
 export interface DeliveryTerm {
 	destinationSymbol: string;

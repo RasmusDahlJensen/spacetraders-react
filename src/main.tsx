@@ -6,8 +6,8 @@ import "./index.css";
 import Navigation from "./components/Navigation.tsx";
 
 // Navigation pages
-import ContractsPage from "./contractData/ContractsPage.tsx";
-import ShipPage from "./shipData/ShipData.tsx";
+import ContractsPage from "./api/contractData/ContractsPage.tsx";
+import ShipPage from "./api/shipData/ShipData.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>

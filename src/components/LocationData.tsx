@@ -19,7 +19,7 @@ const LocationData: React.FC<LocationDataProps> = ({ locationData }) => (
 		</div>
 		<div>
 			<p>
-				Coordinates: ({locationData.x}, {locationData.y})
+				Coordinates: X: ({locationData.x}, Y: {locationData.y})
 			</p>
 		</div>
 		<div>

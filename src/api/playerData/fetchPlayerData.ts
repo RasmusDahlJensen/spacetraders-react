@@ -1,4 +1,4 @@
-import axiosInstance from "../axiosInstance/axiosInstance";
+import axiosInstance from "../api/axiosInstance/axiosInstance";
 
 export interface PlayerDataModel {
 	accountId: string;
