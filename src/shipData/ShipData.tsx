@@ -31,8 +31,8 @@ const ShipPage: React.FC = () => {
 			<h1>Shipyard Information</h1>
 			{shipyards.length > 0 ? (
 				<div>
-					{shipyards.map((shipyard) => (
-						<div key={shipyard.symbol}>
+					{shipyards.map((shipyard, index) => (
+						<div key={index}>
 							<h2>Shipyard {shipyard.symbol}</h2>
 							<p>Type: {shipyard.type}</p>
 							<p>System Symbol: {shipyard.systemSymbol}</p>
