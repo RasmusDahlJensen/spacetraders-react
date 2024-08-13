@@ -1,4 +1,4 @@
-import axiosInstance from "../api/axiosInstance/axiosInstance";
+import axiosInstance from "../axiosInstance/axiosInstance";
 
 export interface Orbital {
 	symbol: string;

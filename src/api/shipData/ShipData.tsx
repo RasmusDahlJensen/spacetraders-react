@@ -1,16 +1,24 @@
-// ShipPage.tsx
-
 import React, { useEffect, useState } from "react";
-import { fetchShipyard, ShipyardModel } from "./shipData";
+import {
+	fetchShipyard,
+	fetchAvailableShips,
+	purchaseShip,
+	ShipyardModel,
+	ShipModel,
+} from "./shipDataModel";
 
 const ShipPage: React.FC = () => {
 	const [shipyards, setShipyards] = useState<ShipyardModel[]>([]);
+	const [availableShips, setAvailableShips] = useState<{
+		[key: string]: ShipModel[];
+	}>({});
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+
 	useEffect(() => {
 		const fetchShipData = async () => {
 			try {
-				const shipyardData = await fetchShipyard("X1-ZV55");
+				const shipyardData = await fetchShipyard("X1-TU74");
 				setShipyards(shipyardData);
 			} catch (err) {
 				console.error("Error fetching ship data:", err);
@@ -22,6 +30,36 @@ const ShipPage: React.FC = () => {
 
 		fetchShipData();
 	}, []);
+
+	const handleFetchShips = async (
+		systemSymbol: string,
+		waypointSymbol: string
+	) => {
+		try {
+			const ships = await fetchAvailableShips(systemSymbol, waypointSymbol);
+			console.log("Fetched ships:", ships);
+			setAvailableShips((prev) => ({
+				...prev,
+				[waypointSymbol]: ships,
+			}));
+		} catch (err) {
+			console.error("Error fetching available ships:", err);
+		}
+	};
+
+	const handlePurchaseShip = async (
+		shipType: string,
+		waypointSymbol: string
+	) => {
+		try {
+			const purchaseResponse = await purchaseShip(shipType, waypointSymbol);
+			console.log("Ship purchased successfully:", purchaseResponse);
+			alert(`Successfully purchased ${shipType}`);
+		} catch (error) {
+			console.error("Error purchasing ship:", error);
+			alert("Failed to purchase ship. Check console for details.");
+		}
+	};
 
 	if (loading) return <div>Loading shipyard data...</div>;
 	if (error) return <div>{error}</div>;
@@ -58,6 +96,32 @@ const ShipPage: React.FC = () => {
 								Submitted on:{" "}
 								{new Date(shipyard.chart.submittedOn).toLocaleString()}
 							</p>
+							<button
+								onClick={() =>
+									handleFetchShips(shipyard.systemSymbol, shipyard.symbol)
+								}
+							>
+								Show Available Ships
+							</button>
+							{availableShips[shipyard.symbol] && (
+								<div>
+									<h3>Available Ships:</h3>
+									<ul>
+										{availableShips[shipyard.symbol].map((ship) => (
+											<li key={ship.type}>
+												<strong>{ship.type}</strong>
+												<button
+													onClick={() =>
+														handlePurchaseShip(ship.type, shipyard.symbol)
+													}
+												>
+													Purchase
+												</button>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
 						</div>
 					))}
 				</div>

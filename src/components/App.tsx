@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
 	fetchPlayerData,
 	PlayerDataModel,
-} from "../playerData/fetchPlayerData";
+} from "../api/playerData/fetchPlayerData";
 import {
 	fetchLocationData,
 	LocationDataModel,
-} from "../locationData/viewLocation";
+} from "../api/locationData/viewLocation";
 import PlayerData from "./PlayerData";
 import LocationData from "./LocationData";
 
